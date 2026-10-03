@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0b1120">
+  <meta name="description" content="Aether — Your lifelong private AI companion for learning, research, health and daily life.">
+  <title>Aether – Lifelong AI Companion</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ========== SPLASH ========== -->
+  <div id="splash" class="screen active">
+    <div class="splash-content">
+      <div class="logo-mark">A</div>
+      <div class="logo">Aether</div>
+      <p class="tagline">Your lifelong private AI partner for learning, research, health & daily life</p>
+      <div class="splash-features">
+        <div class="feat"><span>🔒</span> Private • On-device first</div>
+        <div class="feat"><span>🧠</span> Personal Knowledge Graph</div>
+        <div class="feat"><span>📈</span> Grows with you over years</div>
+      </div>
+      <button class="btn primary large" onclick="startApp()">Enter Aether</button>
+      <p class="privacy-note">Core intelligence runs on your device. You own every memory.</p>
+    </div>
+  </div>
+
+  <!-- ========== MAIN APP ========== -->
+  <div id="app" class="screen">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="status-left">
+        <span class="time" id="current-time">--:--</span>
+      </div>
+      <div class="status-center">
+        <span class="app-name">Aether</span>
+      </div>
+      <div class="status-right">
+        <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">◐</button>
+        <button class="icon-btn" onclick="showScreen('settings')" title="Settings" aria-label="Settings">⚙</button>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- ===== HOME / DASHBOARD ===== -->
+      <section id="home" class="view active">
+        <div class="greeting">
+          <h1 id="greeting-text">Good evening</h1>
+          <p class="subtitle" id="date-line">Saturday, 3 October</p>
+        </div>
+
+        <!-- Daily Pulse Summary -->
+        <div class="card pulse-summary">
+          <div class="pulse-header">
+            <div>
+              <div class="card-title">Today’s Pulse</div>
+              <div class="pulse-score">78 <span>/ 100</span></div>
+            </div>
+            <div class="pulse-ring">
+              <svg viewBox="0 0 36 36">
+                <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="ring-fill" stroke-dasharray="78, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+            </div>
+          </div>
+          <div class="pulse-metrics">
+            <div class="metric">
+              <span class="m-label">Energy</span>
+              <span class="m-value good">72</span>
+            </div>
+            <div class="metric">
+              <span class="m-label">Focus window</span>
+              <span class="m-value">10–13h</span>
+            </div>
+            <div class="metric">
+              <span class="m-label">Sleep</span>
+              <span class="m-value">7.2h</span>
+            </div>
+          </div>
+          <p class="pulse-insight">Peak focus protected 10:00–13:00. Afternoon dip expected after 14:30 — lighter tasks recommended.</p>
+        </div>
+
+        <!-- Priorities -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Priorities</span>
+            <button class="text-btn" onclick="showScreen('agent')">Ask Aether</button>
+          </div>
+          <ul class="priority-list" id="priority-list">
+            <li class="priority-item" onclick="togglePriority(this)">
+              <span class="check">○</span>
+              <div class="p-content">
+                <strong>Review renewable energy notes</strong>
+                <span>20 min · Climate Systems</span>
+              </div>
+            </li>
+            <li class="priority-item" onclick="togglePriority(this)">
+              <span class="check">○</span>
+              <div class="p-content">
+                <strong>Draft course budget</strong>
+                <span>15 min · Finance</span>
+              </div>
+            </li>
+            <li class="priority-item" onclick="togglePriority(this)">
+              <span class="check">○</span>
+              <div class="p-content">
+                <strong>Evening reflection + knowledge link</strong>
+                <span>10 min</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Learning Snapshot -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Learning Paths</span>
+            <button class="text-btn" onclick="showScreen('learn')">View all</button>
+          </div>
+          <div class="path-item">
+            <div class="path-info">
+              <div class="path-name">Climate Systems Research</div>
+              <div class="path-meta">68% · 3 days streak</div>
+            </div>
+            <div class="progress-bar"><div class="fill" style="width:68%"></div></div>
+          </div>
+          <div class="path-item">
+            <div class="path-info">
+              <div class="path-name">Spanish Conversation</div>
+              <div class="path-meta">42% · Next: speaking practice</div>
+            </div>
+            <div class="progress-bar"><div class="fill" style="width:42%"></div></div>
+          </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="section-label">Quick actions</div>
+        <div class="qa-grid">
+          <button class="qa-card" onclick="showScreen('agent')">
+            <span class="qa-icon">✦</span>
+            <span class="qa-label">Talk to Aether</span>
+          </button>
+          <button class="qa-card" onclick="showScreen('capture')">
+            <span class="qa-icon">🎤</span>
+            <span class="qa-label">Capture</span>
+          </button>
+          <button class="qa-card" onclick="showScreen('research')">
+            <span class="qa-icon">🔍</span>
+            <span class="qa-label">Research</span>
+          </button>
+          <button class="qa-card" onclick="showScreen('knowledge')">
+            <span class="qa-icon">🧠</span>
+            <span class="qa-label">Knowledge</span>
+          </button>
+          <button class="qa-card" onclick="showScreen('health')">
+            <span class="qa-icon">♥</span>
+            <span class="qa-label">Health</span>
+          </button>
+          <button class="qa-card" onclick="showScreen('learn')">
+            <span class="qa-icon">📚</span>
+            <span class="qa-label">Learn</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== AGENT / CHAT ===== -->
+      <section id="agent" class="view">
+        <div class="view-header compact">
+          <h2>Talk to Aether</h2>
+          <p class="subtitle">Private agent • Multi-step reasoning</p>
+        </div>
+        <div class="chat-container" id="chat-container">
+          <div class="message ai">
+            <div class="msg-avatar">A</div>
+            <div class="msg-bubble">
+              Hello. I’m ready to help with research, learning plans, health insights, schedules, or anything else on your mind. What would you like to accomplish?
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <div class="suggested-prompts" id="suggested-prompts">
+            <button class="prompt-chip" onclick="sendPrompt('Research careers in renewable energy and create a 30-day learning plan')">Research + Plan</button>
+            <button class="prompt-chip" onclick="sendPrompt('Summarize my recent notes on sleep and suggest schedule changes')">Health + Schedule</button>
+            <button class="prompt-chip" onclick="sendPrompt('Help me budget for an online course next month')">Budget help</button>
+          </div>
+          <div class="input-row">
+            <input type="text" id="chat-input" placeholder="Ask or command anything…" autocomplete="off" aria-label="Message Aether">
+            <button class="btn primary send-btn" onclick="sendMessage()" aria-label="Send">↑</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CAPTURE ===== -->
+      <section id="capture" class="view">
+        <div class="view-header">
+          <h2>Capture</h2>
+          <p class="subtitle">Voice, photo, text or link — instantly organized into your Knowledge Graph</p>
+        </div>
+        <div class="capture-area">
+          <button class="capture-btn large" id="voice-btn" onclick="simulateCapture('voice')">
+            <span class="big-icon">🎤</span>
+            <span>Tap to capture voice</span>
+          </button>
+          <div class="capture-options">
+            <button class="capture-opt" onclick="simulateCapture('photo')">📷 Photo</button>
+            <button class="capture-opt" onclick="simulateCapture('text')">✏️ Text</button>
+            <button class="capture-opt" onclick="simulateCapture('link')">🔗 Link</button>
+          </div>
+        </div>
+        <div id="capture-result" class="card hidden">
+          <div class="card-header">
+            <span class="card-title">Captured</span>
+            <span class="badge positive">Linked to Graph</span>
+          </div>
+          <p id="capture-text" class="card-body"></p>
+          <p class="meta" id="capture-links">Linked to: Climate Systems · Personal Goals · Health Patterns</p>
+        </div>
+        <div class="card tip-card">
+          <div class="card-title">Tip</div>
+          <p class="card-body">Everything you capture becomes a living node. Aether automatically connects it to related topics so it stays useful for years.</p>
+        </div>
+      </section>
+
+      <!-- ===== RESEARCH ===== -->
+      <section id="research" class="view">
+        <div class="view-header">
+          <h2>Research Mode</h2>
+          <p class="subtitle">Cited findings → structured notes → clear actions</p>
+        </div>
+        <div class="research-input">
+          <input type="text" id="research-query" placeholder="What do you want to understand deeply?" autocomplete="off">
+          <button class="btn primary" onclick="runResearch()">Research</button>
+        </div>
+        <div id="research-result" class="hidden">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Key Findings</span>
+              <span class="badge">Sources cited</span>
+            </div>
+            <div id="research-findings" class="card-body"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Structured Notes</span></div>
+            <div id="research-notes" class="card-body mono"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Suggested Actions</span></div>
+            <ul id="research-actions" class="priority-list"></ul>
+            <button class="btn primary small" onclick="addToPlan()">Add to my plan →</button>
+          </div>
+        </div>
+        <div id="research-empty" class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <p>Ask any deep question. Aether will synthesize findings, create notes, and suggest concrete next steps grounded in your Knowledge Graph.</p>
+        </div>
+      </section>
+
+      <!-- ===== KNOWLEDGE GRAPH ===== -->
+      <section id="knowledge" class="view">
+        <div class="view-header">
+          <h2>Your Knowledge</h2>
+          <p class="subtitle">Living personal graph • Fully under your control</p>
+        </div>
+        <div class="kg-stats">
+          <div class="stat"><span class="num" id="kg-nodes">247</span><span class="label">Nodes</span></div>
+          <div class="stat"><span class="num" id="kg-links">891</span><span class="label">Links</span></div>
+          <div class="stat"><span class="num" id="kg-topics">18</span><span class="label">Topics</span></div>
+        </div>
+        <div class="kg-search">
+          <input type="text" id="kg-search" placeholder="Search your knowledge…" oninput="filterKnowledge()" autocomplete="off">
+        </div>
+        <div class="kg-topics" id="kg-list">
+          <!-- populated by JS -->
+        </div>
+      </section>
+
+      <!-- ===== HEALTH ===== -->
+      <section id="health" class="view">
+        <div class="view-header">
+          <h2>Health Insights</h2>
+          <p class="subtitle">Patterns from your data • Private by default</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Energy Trend (14 days)</span>
+            <span class="badge positive">↑ Improving</span>
+          </div>
+          <div class="chart-placeholder">
+            <div class="bar" style="height:45%"></div>
+            <div class="bar" style="height:55%"></div>
+            <div class="bar" style="height:40%"></div>
+            <div class="bar" style="height:65%"></div>
+            <div class="bar" style="height:70%"></div>
+            <div class="bar" style="height:58%"></div>
+            <div class="bar" style="height:75%"></div>
+            <div class="bar" style="height:68%"></div>
+            <div class="bar" style="height:80%"></div>
+            <div class="bar" style="height:72%"></div>
+            <div class="bar" style="height:85%"></div>
+            <div class="bar" style="height:78%"></div>
+            <div class="bar" style="height:82%"></div>
+            <div class="bar active" style="height:78%"></div>
+          </div>
+          <p class="card-body" style="margin-top:0.8rem">Average energy up 11% vs previous period. Strong correlation with deep sleep >1.5 h.</p>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Sleep Summary</span></div>
+          <div class="health-grid">
+            <div class="h-stat"><span class="h-num">7.2h</span><span class="h-label">Avg sleep</span></div>
+            <div class="h-stat"><span class="h-num">1.6h</span><span class="h-label">Deep sleep</span></div>
+            <div class="h-stat"><span class="h-num">22:18</span><span class="h-label">Avg bedtime</span></div>
+            <div class="h-stat"><span class="h-num">+12%</span><span class="h-label">Deep vs prior</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Recommendations</span></div>
+          <ul class="rec-list">
+            <li>Protect 10:00–13:30 as deep work (your peak cognitive window)</li>
+            <li>Move admin tasks to 14:30–16:00 energy dip</li>
+            <li>Aim for consistent wind-down by 22:15</li>
+            <li>10-min walk after lunch improves afternoon focus ~18% in your data</li>
+          </ul>
+          <button class="btn primary small" onclick="sendPrompt('Summarize my recent notes on sleep and suggest schedule changes'); showScreen('agent')">Ask Aether to adjust schedule →</button>
+        </div>
+      </section>
+
+      <!-- ===== LEARN ===== -->
+      <section id="learn" class="view">
+        <div class="view-header">
+          <h2>Learning Paths</h2>
+          <p class="subtitle">Structured progress that compounds over years</p>
+        </div>
+        <div class="path-card">
+          <div class="path-top">
+            <div>
+              <div class="path-name">Climate Systems Research</div>
+              <div class="path-meta">Active · 68% complete</div>
+            </div>
+            <div class="path-pct">68%</div>
+          </div>
+          <div class="progress-bar large"><div class="fill" style="width:68%"></div></div>
+          <div class="path-next">Next: Review IRENA outlook chapters + skill gap list</div>
+          <button class="btn ghost small" onclick="showScreen('agent')">Continue with Aether →</button>
+        </div>
+        <div class="path-card">
+          <div class="path-top">
+            <div>
+              <div class="path-name">Spanish Conversation</div>
+              <div class="path-meta">Active · 42% complete</div>
+            </div>
+            <div class="path-pct">42%</div>
+          </div>
+          <div class="progress-bar large"><div class="fill" style="width:42%"></div></div>
+          <div class="path-next">Next: 15-min speaking practice + vocabulary review</div>
+          <button class="btn ghost small" onclick="showScreen('agent')">Continue with Aether →</button>
+        </div>
+        <div class="path-card muted">
+          <div class="path-top">
+            <div>
+              <div class="path-name">Personal Finance Systems</div>
+              <div class="path-meta">Paused</div>
+            </div>
+            <div class="path-pct">25%</div>
+          </div>
+          <div class="progress-bar large"><div class="fill" style="width:25%"></div></div>
+          <button class="btn ghost small" onclick="showToast('Path resumed')">Resume path</button>
+        </div>
+        <button class="btn secondary full" onclick="showToast('New path wizard coming in full release')">+ Start new learning path</button>
+      </section>
+
+      <!-- ===== SETTINGS ===== -->
+      <section id="settings" class="view">
+        <div class="view-header">
+          <h2>Settings</h2>
+          <p class="subtitle">Privacy, accessibility & control</p>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-title">Appearance</div>
+          <div class="setting-row">
+            <span>Theme</span>
+            <button class="btn ghost small" onclick="toggleTheme()">Toggle light / dark</button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-title">Accessibility</div>
+          <label class="setting-row">
+            <span>Large text</span>
+            <input type="checkbox" id="large-text" onchange="toggleLargeText()">
+          </label>
+          <label class="setting-row">
+            <span>High contrast</span>
+            <input type="checkbox" id="high-contrast" onchange="toggleHighContrast()">
+          </label>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-title">Privacy & Memory</div>
+          <div class="setting-row">
+            <span>On-device processing</span>
+            <span class="badge positive">Enabled</span>
+          </div>
+          <div class="setting-row">
+            <span>Memory ledger</span>
+            <button class="btn ghost small" onclick="showToast('Memory ledger exported (demo)')">Export</button>
+          </div>
+          <div class="setting-row">
+            <span>Clear local cache</span>
+            <button class="btn ghost small" onclick="showToast('Cache cleared')">Clear</button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-title">About</div>
+          <div class="setting-row">
+            <span>Version</span>
+            <span class="muted">2027.1.0 Prototype</span>
+          </div>
+          <div class="setting-row">
+            <span>Model</span>
+            <span class="muted">On-device + hybrid</span>
+          </div>
+        </div>
+
+        <p class="privacy-footer">Aether never sells your data. All core intelligence is designed to run primarily on your device. You remain in full control of every memory.</p>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn active" data-view="home" onclick="showScreen('home')" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" data-view="agent" onclick="showScreen('agent')" aria-label="Talk to Aether">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Aether</span>
+      </button>
+      <button class="nav-btn" data-view="capture" onclick="showScreen('capture')" aria-label="Capture">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19 12v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7M12 2v4M5 8l2 2M19 8l-2 2"/></svg>
+        <span>Capture</span>
+      </button>
+      <button class="nav-btn" data-view="knowledge" onclick="showScreen('knowledge')" aria-label="Knowledge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>Knowledge</span>
+      </button>
+      <button class="nav-btn" data-view="health" onclick="showScreen('health')" aria-label="Health">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <span>Health</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
